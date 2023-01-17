@@ -113,18 +113,23 @@ public class StreamTest {
 		stream = list.stream();
 
 		/*
-		 * 流之间的相互转化 一个 Stream 只可以使用一次，这段代码为了简洁而重复使用了数次，因此会抛出异常
+		 * 流之间的相互转化 一个 Stream 只可以使用一次，这段代码为了简洁而重复使用了数次，因此会抛出异常.已修复。
 		 */
 		try {
+			//同一个流 连使用两次会报错：java.lang.IllegalStateException: stream has already been operated upon or closed
+			Stream<String> stream1 = Stream.of("a", "b", "c");
 			Stream<String> stream2 = Stream.of("a", "b", "c");
+			Stream<String> stream3 = Stream.of("a", "b", "c");
+			Stream<String> stream4 = Stream.of("a", "b", "c");
+			Stream<String> stream5 = Stream.of("a", "b", "c");
 			// 转换成 Array
-			String[] strArray1 = stream2.toArray(String[]::new);
+			String[] strArray1 = stream1.toArray(String[]::new);
 
 			// 转换成 Collection
 			List<String> list1 = stream2.collect(Collectors.toList());
-			List<String> list2 = stream2.collect(Collectors.toCollection(ArrayList::new));			
-			Set set1 = stream2.collect(Collectors.toSet());
-			Stack stack1 = stream2.collect(Collectors.toCollection(Stack::new));
+			List<String> list2 = stream3.collect(Collectors.toCollection(ArrayList::new));
+			Set set1 = stream4.collect(Collectors.toSet());
+			Stack stack1 = stream5.collect(Collectors.toCollection(Stack::new));
 
 			// 转换成 String
 			String str = stream.collect(Collectors.joining()).toString();
@@ -257,7 +262,7 @@ public class StreamTest {
 			User user = new User(i, "pancm" + i);
 			list9.add(user);
 		}
-		System.out.println("截取之前的数据:");
+		System.out.println("截取之前的数据:");//在User对象中.每次调用getName打印
 		// 取前3条数据，但是扔掉了前面的2条，可以理解为拿到的数据为 2<=i<3 (i 是数值下标)
 		List<String> list10 = list9.stream().map(User::getName).limit(3).skip(2).collect(Collectors.toList());
 		System.out.println("截取之后的数据:" + list10);
