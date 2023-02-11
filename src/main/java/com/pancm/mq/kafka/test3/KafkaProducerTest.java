@@ -21,7 +21,7 @@ public class KafkaProducerTest implements Runnable {
 	private final KafkaProducer<String, String> producer;
 	private final String topic;
 	private int k=10;
-   private final String servers="master:9092,slave1:9092,slave2:9092";
+   private final String servers="localhost:9092";
 	/**
 	 * @param topic 消息名称
 	 * @param

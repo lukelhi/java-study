@@ -23,8 +23,8 @@ public class KafkaConsumerTest extends Thread {
 	private ConsumerRecords<String, String> msgList;
 	private final String topic;
 	private static final String GROUPID = "groupA1";
-	private final String servers="master:9092,slave1:9092,slave2:9092";
-	
+	private final String servers="localhost:9092";
+
 	public KafkaConsumerTest(String topicName) {
 		Properties props = new Properties();
 		//kafka消费的的地址
