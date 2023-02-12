@@ -1,6 +1,7 @@
 package com.pancm.elasticsearch;
 
 import org.apache.http.HttpHost;
+import org.apache.lucene.search.TotalHits;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.ShardSearchFailure;
@@ -22,7 +23,7 @@ import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
-import org.elasticsearch.search.aggregations.metrics.avg.Avg;
+import org.elasticsearch.search.aggregations.metrics.Avg;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.suggest.Suggest;
@@ -49,7 +50,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class EsHighLevelRestSearchTest {
 
-    private static String elasticIp = "192.169.0.23";
+    private static String elasticIp = "192.168.77.130";
     private static int elasticPort = 9200;
     private static Logger logger = LoggerFactory.getLogger(EsHighLevelRestSearchTest.class);
 
@@ -485,7 +486,7 @@ public class EsHighLevelRestSearchTest {
 
         SearchHits hits = searchResponse2.getHits();
         //总条数和分值
-        long totalHits = hits.getTotalHits();
+        TotalHits totalHits = hits.getTotalHits();
         float maxScore = hits.getMaxScore();
 
 

@@ -39,7 +39,7 @@ import static org.junit.Assert.assertNull;
  */
 public class EsHighLevelRestTest2 {
 
-	private static String elasticIp = "192.169.0.23";
+	private static String elasticIp = "192.168.77.130";
 	private static int elasticPort = 9200;
 
 	private static Logger logger = LoggerFactory.getLogger(EsHighLevelRestTest2.class);
