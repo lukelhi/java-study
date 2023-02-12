@@ -60,7 +60,7 @@ import java.util.function.BiConsumer;
  */
 public class EsHighLevelRestTest1 {
 
-	private static String elasticIp = "192.169.0.23";
+	private static String elasticIp = "192.168.77.130";
 	private static int elasticPort = 9200;
 
 	private static Logger logger = LoggerFactory.getLogger(EsHighLevelRestTest1.class);
@@ -75,9 +75,9 @@ public class EsHighLevelRestTest1 {
 			queryById();
 			exists();
 			update();
-//			deleteByQuery();
+			deleteByQuery();
 //			deleteIndex();
-//			delete();
+			delete();
 //			bulk();
 			close();
 		} catch (Exception e) {
@@ -88,10 +88,11 @@ public class EsHighLevelRestTest1 {
 
 	private static void insert() throws IOException {
 		String index = "test1";
-		String type = "_doc";
+//		String type = "_doc";
 		// 唯一编号
-		String id = "1";
-		IndexRequest request = new IndexRequest(index, type, id);
+//		String id = "1";
+//		IndexRequest request = new IndexRequest(index, type, id);
+		IndexRequest request = new IndexRequest(index);
 		/*
 		 * 第一种方式，通过jsonString进行创建
 		 */
@@ -186,7 +187,7 @@ public class EsHighLevelRestTest1 {
 	private static void createIndex() throws IOException {
 
 		// 类型
-		String type = "_doc";
+//		String type = "_doc";
 		String index = "test1";
 		// setting 的值
 		Map<String, Object> setmapping = new HashMap<>();
@@ -215,11 +216,11 @@ public class EsHighLevelRestTest1 {
 		properties.put("sendtime", date);
 		Map<String, Object> mapping = new HashMap<>();
 		mapping.put("properties", properties);
-		jsonMap2.put(type, mapping);
+//		jsonMap2.put(type, mapping);
 
 		GetIndexRequest getRequest = new GetIndexRequest();
 		getRequest.indices(index);
-		getRequest.types(type);
+//		getRequest.types(type);
 		getRequest.local(false);
 		getRequest.humanReadable(true);
 		boolean exists2 = client.indices().exists(getRequest, RequestOptions.DEFAULT);
@@ -234,7 +235,7 @@ public class EsHighLevelRestTest1 {
 			// 加载数据类型
 			request.settings(setmapping);
 			//设置mapping参数
-			request.mapping(type, jsonMap2);
+//			request.mapping(type, jsonMap2);
 			//设置别名
 			request.alias(new Alias("pancm_alias"));
 			CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
@@ -254,12 +255,16 @@ public class EsHighLevelRestTest1 {
 	 *
 	 * @throws IOException
 	 */
-	private static void deleteIndex() throws IOException {
-		String index = "userindex";
+	private static void deleteIndex(){
+		String index = "test1";
 		DeleteIndexRequest  request = new DeleteIndexRequest(index);
-		// 同步删除
-		client.indices().delete(request,RequestOptions.DEFAULT);
-		System.out.println("删除索引库成功！"+index);
+		try {
+			// 同步删除
+			client.indices().delete(request,RequestOptions.DEFAULT);
+			System.out.println("删除索引库成功！"+index);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 
@@ -269,12 +274,14 @@ public class EsHighLevelRestTest1 {
 	 * @throws IOException
 	 */
 	private static void queryById() {
-		String type = "_doc";
+//		String type = "_doc";
 		String index = "test1";
 		// 唯一编号
 		String id = "1";
 		// 创建查询请求
-		GetRequest getRequest = new GetRequest(index, type, id);
+//		GetRequest getRequest = new GetRequest(index, type, id);
+		GetRequest getRequest = new GetRequest(index);
+		getRequest.id(id);
 
 		GetResponse getResponse = null;
 		try {
@@ -314,6 +321,7 @@ public class EsHighLevelRestTest1 {
 		String id = "1";
 		// 创建查询请求
 		GetRequest getRequest = new GetRequest(index, type, id);
+//		GetRequest getRequest = new GetRequest(index);
 
 		
 		boolean exists = client.exists(getRequest, RequestOptions.DEFAULT);
@@ -341,14 +349,14 @@ public class EsHighLevelRestTest1 {
 	 * @throws IOException
 	 */
 	private static void update() throws IOException {
-		String type = "_doc";
+//		String type = "_doc";
 		String index = "test1";
 		// 唯一编号
 		String id = "1";
 		UpdateRequest upateRequest = new UpdateRequest();
 		upateRequest.id(id);
 		upateRequest.index(index);
-		upateRequest.type(type);
+//		upateRequest.type(type);
 
 		// 依旧可以使用Map这种集合作为更新条件
 		Map<String, Object> jsonMap = new HashMap<>();
@@ -373,10 +381,11 @@ public class EsHighLevelRestTest1 {
 	 * @throws IOException
 	 */
 	private static void updateByQuery() throws IOException {
-		String type = "_doc";
+//		String type = "_doc";
 		String index = "test1";
 		//
-		UpdateByQueryRequest request = new UpdateByQueryRequest(index,type);
+//		UpdateByQueryRequest request = new UpdateByQueryRequest(index,type);
+		UpdateByQueryRequest request = new UpdateByQueryRequest(index);
 		// 设置查询条件
 		request.setQuery(new TermQueryBuilder("user", "pancm"));
 		BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
@@ -427,10 +436,10 @@ public class EsHighLevelRestTest1 {
 		String index = "test1";
 		// 唯一编号
 		String id = "1";
-		DeleteRequest deleteRequest = new DeleteRequest();
+		DeleteRequest deleteRequest = new DeleteRequest(index);
 		deleteRequest.id(id);
-		deleteRequest.index(index);
-		deleteRequest.type(type);
+//		deleteRequest.index(index);
+//		deleteRequest.type(type);
 		// 设置超时时间
 		deleteRequest.timeout(TimeValue.timeValueMinutes(2));
 		// 设置刷新策略"wait_for"
@@ -481,11 +490,11 @@ public class EsHighLevelRestTest1 {
 	 * @throws IOException
 	 */
 	private static void deleteByQuery() throws IOException {
-		String type = "_doc";
+//		String type = "_doc";
 		String index = "test1";
-		DeleteByQueryRequest request = new DeleteByQueryRequest(index,type);
+		DeleteByQueryRequest request = new DeleteByQueryRequest(index);
 		// 设置查询条件
-		request.setQuery(QueryBuilders.termQuery("uid",1234));
+		request.setQuery(QueryBuilders.termQuery("uid",12345));
 		// 同步执行
 		BulkByScrollResponse bulkResponse = client.deleteByQuery(request, RequestOptions.DEFAULT);
 

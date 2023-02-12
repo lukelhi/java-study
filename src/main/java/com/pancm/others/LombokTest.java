@@ -101,8 +101,8 @@ public class LombokTest {
 	 */
 	private static  void test1() throws IOException {
 		//创建要操作的文件路径和名称  
-        String path ="E:/test/hello.txt";
-        String str="你好!";
+        String path = "d:/hello.txt";
+		String str = "你好!";
         FileWriter fw = new FileWriter(path);  
         BufferedWriter bw=new BufferedWriter(fw);
         bw.write(str);  
@@ -118,8 +118,8 @@ public class LombokTest {
 	 */
 	private static void test2() throws IOException {
 		//创建要操作的文件路径和名称  
-        String path ="E:/test/hello.txt";
-        String str="你好!";
+		String path = "d:/hello.txt";
+		String str = "你好!";
         @Cleanup
         FileWriter fw = new FileWriter(path);  
         @Cleanup
@@ -132,7 +132,6 @@ public class LombokTest {
 
 
 	/**
-	 * @param name2
 	 */
 	private static void test3(String name) {
 		if(null == name) {
@@ -142,7 +141,6 @@ public class LombokTest {
 	}
 	
 	/**
-	 * @param name2
 	 */
 	private static void test4(@NonNull String name) {
 		System.out.println(name);

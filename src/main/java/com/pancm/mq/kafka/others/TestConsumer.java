@@ -12,7 +12,7 @@ public class TestConsumer {
     public static void main(String[] args) {
         Properties props = new Properties();
 
-        props.put("bootstrap.servers", "192.169.0.23:9092");
+        props.put("bootstrap.servers", "192.168.77.130:9092");
         System.out.println("this is the group part test 1");
         //消费者的组id
         props.put("group.id", "GroupA");//这里是GroupA或者GroupB

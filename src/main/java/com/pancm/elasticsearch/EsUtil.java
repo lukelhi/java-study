@@ -65,7 +65,7 @@ public final class EsUtil {
 
         try {
 
-            EsUtil.build("192.169.0.23:9200");
+            EsUtil.build("192.168.77.130:9200");
             System.out.println("ES连接初始化成功!");
 //            createIndexTest();
 //            System.out.println("ES索引库创建成功！");

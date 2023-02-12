@@ -13,7 +13,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
  * 
 * Title: KafkaConsumerTest
 * Description: 
-*  kafka消费者 demo
+*  kafka消费者 demo:https://www.cnblogs.com/xuwujing/p/8371127.html
 * Version:1.0.0  
 * @author pancm
 * @date 2018年1月26日
@@ -30,7 +30,8 @@ public class KafkaConsumerTest implements Runnable {
 	public KafkaConsumerTest(String topicName) {
 		Properties props = new Properties();
 		//kafka消费的的地址
-		props.put("bootstrap.servers", "master:9092,slave1:9092,slave2:9092");
+//		props.put("bootstrap.servers", "master:9092,slave1:9092,slave2:9092");
+		props.put("bootstrap.servers", "localhost:9092");
 		//组名 不同组名可以重复消费
 		props.put("group.id", GROUPID);
 		//是否自动提交

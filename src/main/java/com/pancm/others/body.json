@@ -1,0 +1,7 @@
+{
+  "appid": "Sg8",
+  "ukey": "03e1923c",
+  "authType": "3",
+  "time": "{{time}}",
+  "sign": "{{sign}}"
+}
