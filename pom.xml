@@ -284,6 +284,12 @@
 			<artifactId>amqp-client</artifactId>
 			<version>4.3.0</version>
 		</dependency>
+        <!--rocketmq 相关jar -->
+        <dependency>
+        <groupId>org.apache.rocketmq</groupId>
+        <artifactId>rocketmq-client</artifactId>
+        <version>4.7.1</version>
+    </dependency>
 
 		<!-- kafka -->
 		<dependency>
