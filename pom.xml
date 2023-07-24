@@ -18,6 +18,20 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+	<!--	指定maven插件和JDK编译版本，防止本地maven插件版本冲突问题 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 
 
@@ -427,10 +441,31 @@
 	</dependencies>
 	
 	
-		<repositories>
+	<repositories>
 		<repository>
 			<id>spring-milestone</id>
 			<url>http://repo.spring.io/libs-release</url>
 		</repository>
+<!--		<repository>-->
+<!--			<id>alimaven</id>-->
+<!--			<url>https://maven.aliyun.com/repository/public</url>-->
+<!--		</repository>-->
 	</repositories>
+<!--	<pluginRepositories>-->
+<!--		<pluginRepository>-->
+<!--			<id>alimaven</id>-->
+<!--			<url>https://maven.aliyun.com/repository/public</url>-->
+<!--		</pluginRepository>-->
+<!--	</pluginRepositories>-->
+
+<!--	<build>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-resources-plugin</artifactId>-->
+<!--				<version>3.8.1</version>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
+
 </project>
