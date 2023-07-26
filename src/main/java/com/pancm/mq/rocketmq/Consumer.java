@@ -20,6 +20,11 @@ public class Consumer {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
                 MessageExt messageExt = list.get(0);
+                //一定程度 反映消息传输时间
+                long endTime = System.currentTimeMillis();
+                String sendTime = messageExt.getProperty("sendTime");
+                System.out.printf("time span:" + (endTime - Long.parseLong(sendTime)));
+
                 byte[] body = messageExt.getBody();
                 System.out.printf(String.valueOf(body.length));
                 System.out.printf(messageExt.getMsgId());
